@@ -22,10 +22,18 @@ public class IntegrationConfig {
 
     @Bean
     public FileWritingMessageHandler fileWriter() {
-        FileWritingMessageHandler handler = new FileWritingMessageHandler(new File("tasks.txt"));
+        File directory = new File("tasks");
+
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        FileWritingMessageHandler handler = new FileWritingMessageHandler(directory);
         handler.setAppendNewLine(true);
         handler.setExpectReply(false);
         handler.setFileExistsMode(FileExistsMode.APPEND);
+        handler.setFileNameGenerator(message -> "tasks.txt");
+
         return handler;
     }
 
