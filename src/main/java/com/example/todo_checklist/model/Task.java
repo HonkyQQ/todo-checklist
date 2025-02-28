@@ -4,22 +4,44 @@ import java.time.LocalDate;
 
 public class Task {
     private String description;
-    private boolean completed;
+    private Boolean completed; // Объектный тип Boolean, чтобы поддерживать null
     private LocalDate deadline;
 
+    // Конструктор
     public Task(String description) {
         this.description = description;
-        this.completed = false;
+        this.completed = false; // По умолчанию задача не выполнена
     }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    // Геттеры и сеттеры
+    public String getDescription() {
+        return description;
+    }
 
-    public boolean isCompleted() { return completed; }
-    public void setCompleted(boolean completed) { this.completed = completed; }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    public LocalDate getDeadline() { return deadline; }
-    public void setDeadline(LocalDate deadline) { this.deadline = deadline; }
+    public Boolean getCompleted() { // Возвращаем Boolean
+        return completed;
+    }
+
+    public void setCompleted(Boolean completed) { // Устанавливаем значение Boolean
+        this.completed = completed;
+    }
+
+    // Дополнительный метод isCompleted
+    public boolean isCompleted() {
+        return completed != null && completed; // Возвращаем примитивный boolean
+    }
+
+    public LocalDate getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(LocalDate deadline) {
+        this.deadline = deadline;
+    }
 
     @Override
     public String toString() {

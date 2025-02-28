@@ -17,4 +17,9 @@ public class DeadlineTaskDecorator extends TaskServiceDecorator {
         super.addTask(task);
         System.out.println("Добавлен дедлайн: " + task.getDeadline());
     }
+
+    @Override
+    public void updateTaskStatus(int taskNumber, boolean completed) {
+        decoratedService.updateTaskStatus(taskNumber, completed);
+    }
 }
