@@ -19,7 +19,7 @@ public class DeadlineTaskDecorator extends TaskServiceDecorator {
     }
 
     @Override
-    public void updateTaskStatus(int taskNumber, boolean completed) {
-        decoratedService.updateTaskStatus(taskNumber, completed);
+    public boolean updateTaskStatus(int taskNumber, boolean completed) {
+        return decoratedService.updateTaskStatus(taskNumber, completed);
     }
 }

@@ -4,5 +4,5 @@ import com.example.todo_checklist.model.Task;
 
 public interface TaskService {
     void addTask(Task task);
-    void updateTaskStatus(int taskNumber, boolean completed); // Добавленный метод
+    boolean updateTaskStatus(int taskNumber, boolean completed); // Теперь возвращает boolean
 }

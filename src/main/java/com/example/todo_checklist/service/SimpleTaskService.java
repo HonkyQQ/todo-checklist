@@ -23,15 +23,14 @@ public class SimpleTaskService implements TaskService {
         saveTaskToFile(task);
         System.out.println("Задача добавлена: " + task);
     }
-
     @Override
-    public void updateTaskStatus(int taskNumber, boolean completed) {
+    public boolean updateTaskStatus(int taskNumber, boolean completed) {
         try {
             List<String> lines = Files.readAllLines(Paths.get(FILE_PATH));
 
             if (taskNumber < 1 || taskNumber > lines.size()) {
                 System.out.println("Ошибка: Номер задачи вне диапазона!");
-                return;
+                return false; // Возвращаем false при ошибке
             }
 
             List<String> updatedLines = new ArrayList<>();
@@ -49,9 +48,11 @@ public class SimpleTaskService implements TaskService {
 
             Files.write(Paths.get(FILE_PATH), updatedLines);
             System.out.println("Задача №" + taskNumber + " обновлена: " + (completed ? "выполнено" : "не выполнено"));
+            return true; // Возвращаем true при успешном обновлении
 
         } catch (IOException e) {
             System.err.println("Ошибка при обновлении файла: " + e.getMessage());
+            return false; // Возвращаем false в случае ошибки
         }
     }
 

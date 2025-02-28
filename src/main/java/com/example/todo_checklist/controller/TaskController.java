@@ -17,14 +17,14 @@ public class TaskController {
 
     @PostMapping("/add")
     public String addTask(@RequestBody Task task) {
-        // Если дедлайн не передан, оставляем его null, иначе задаем его по умолчанию
+        // Если дедлайн не передан, оставляем его null
         if (task.getDeadline() == null) {
-            task.setDeadline(null); // Убедимся, что дедлайн не будет установлен по умолчанию
+            task.setDeadline(null);
         }
 
         // Если статус не передан, устанавливаем его в false
         if (task.getCompleted() == null) {
-            task.setCompleted(false); // Если статус не задан, по умолчанию задача не выполнена
+            task.setCompleted(false);
         }
 
         taskService.addTask(task);
@@ -33,7 +33,12 @@ public class TaskController {
 
     @PutMapping("/{taskNumber}/status")
     public ResponseEntity<String> updateTaskStatus(@PathVariable int taskNumber, @RequestParam boolean completed) {
-        taskService.updateTaskStatus(taskNumber, completed);
-        return ResponseEntity.ok("Статус задачи обновлён!");
+        boolean updated = taskService.updateTaskStatus(taskNumber, completed);
+
+        if (updated) {
+            return ResponseEntity.ok("Статус задачи #" + taskNumber + " обновлён!");
+        } else {
+            return ResponseEntity.badRequest().body("Задача #" + taskNumber + " не найдена!");
+        }
     }
 }
